@@ -1,0 +1,18 @@
+2015-09-14 16:32:41 Error: [MissingControllerException] Controller class ProdutcsController could not be found.
+Exception Attributes: array (
+  'class' => 'ProdutcsController',
+  'plugin' => NULL,
+)
+Request URL: /proyectos/fpjantgo/1/produtcs
+Stack Trace:
+#0 C:\xampp\htdocs\proyectos\fpjantgo\1\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
+2015-09-16 04:14:18 Error: [MissingControllerException] Controller class CodesController could not be found.
+Exception Attributes: array (
+  'class' => 'CodesController',
+  'plugin' => NULL,
+)
+Request URL: /proyectos/fpjantgo/2/codes
+Stack Trace:
+#0 C:\xampp\htdocs\proyectos\fpjantgo\2\app\webroot\index.php(108): Dispatcher->dispatch(Object(CakeRequest), Object(CakeResponse))
+#1 {main}
