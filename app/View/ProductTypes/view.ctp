@@ -1,4 +1,4 @@
-<div class="productTypes view">
+<div class="well">
 <h2><?php echo __('Product Type'); ?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
@@ -28,8 +28,10 @@
 		</dd>
 	</dl>
 </div>
+
+<!---
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	<h3><?php/* echo __('Actions'); ?></h3>
 	<ul>
 		<li><?php echo $this->Html->link(__('Edit Product Type'), array('action' => 'edit', $productType['ProductType']['id'])); ?> </li>
 		<li><?php echo $this->Form->postLink(__('Delete Product Type'), array('action' => 'delete', $productType['ProductType']['id']), array(), __('Are you sure you want to delete # %s?', $productType['ProductType']['id'])); ?> </li>
@@ -88,3 +90,4 @@
 		</ul>
 	</div>
 </div>
+--->

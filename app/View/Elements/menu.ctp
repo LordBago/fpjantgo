@@ -18,7 +18,6 @@
            <li class="dropdown-header">Productos</li>
             <li><?php echo $this->Html->link('Listar',array('controller' => 'products', 'action' => 'index'));?></li>
             <li><?php echo $this->Html->link('Añadir',array('controller' => 'products', 'action' => 'add'));?></li>
-            <!---
             <li role="separator" class="divider"></li>
             <li class="dropdown-header">Tipo de Productos</li>
             <li><?php echo $this->Html->link('Listar',array('controller' => 'ProductTypes', 'action' => 'index'));?></li>
@@ -27,7 +26,6 @@
             <li class="dropdown-header">Familia de Productos</li>
             <li><?php echo $this->Html->link('Listar',array('controller' => 'ProductFamilies', 'action' => 'index'));?></li>             
             <li><?php echo $this->Html->link('Añadir',array('controller' => 'ProductFamilies', 'action' => 'add'));?></li>
-            --->
           </ul>
         </li>
         <!---<li><a href="#about">About</a></li>

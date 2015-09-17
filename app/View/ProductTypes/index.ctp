@@ -1,6 +1,10 @@
 <div class="productTypes index">
-	<h2><?php echo __('Product Types'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
+
+    <div class="page-header">
+        <h2><?php echo __('Product Types'); ?></h2>
+    </div>
+    
+	<table class="table table-striped" cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
@@ -22,9 +26,9 @@
 			<?php echo $this->Html->link($productType['ProductFamily']['family'], array('controller' => 'product_families', 'action' => 'view', $productType['ProductFamily']['id'])); ?>
 		</td>
 		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $productType['ProductType']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $productType['ProductType']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $productType['ProductType']['id']), array(), __('Are you sure you want to delete # %s?', $productType['ProductType']['id'])); ?>
+			<?php echo $this->Html->link(__('View'), array('action' => 'view', $productType['ProductType']['id']),array('class'=>'btn btn-sm btn-info')); ?>
+			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $productType['ProductType']['id']),array('class'=>'btn btn-sm btn-success')); ?>
+			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $productType['ProductType']['id']), array('class'=>'btn btn-sm btn-danger'), __('Are you sure you want to delete # %s?', $productType['ProductType']['id'])); ?>
 		</td>
 	</tr>
 <?php endforeach; ?>
@@ -38,19 +42,21 @@
 	?>	</p>
 	<div class="paging">
 	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
+		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled btn btn-sm btn-default'));
 		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
+		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled btn btn-sm btn-default'));
 	?>
 	</div>
 </div>
+<!---
 <div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
+	<h3><?php //echo __('Actions'); ?></h3>
 	<ul>
-		<li><?php echo $this->Html->link(__('New Product Type'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Product Families'), array('controller' => 'product_families', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Product Family'), array('controller' => 'product_families', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Products'), array('controller' => 'products', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Product'), array('controller' => 'products', 'action' => 'add')); ?> </li>
+		<li><?php //echo $this->Html->link(__('New Product Type'), array('action' => 'add')); ?></li>
+		<li><?php //echo $this->Html->link(__('List Product Families'), array('controller' => 'product_families', 'action' => 'index')); ?> </li>
+		<li><?php //echo $this->Html->link(__('New Product Family'), array('controller' => 'product_families', 'action' => 'add')); ?> </li>
+		<li><?php //echo $this->Html->link(__('List Products'), array('controller' => 'products', 'action' => 'index')); ?> </li>
+		<li><?php //echo $this->Html->link(__('New Product'), array('controller' => 'products', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+--->
