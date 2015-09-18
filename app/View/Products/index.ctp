@@ -1,10 +1,27 @@
-<div class="products index">
+<?php 
+
+$this->Paginator->options(array(
+    'update' => '#conted-product',
+    'before' => $this->Js->get('#processing')->effect('fadeIn',array('buffer'=>'false')),
+    'complete' => $this->Js->get('#processing')->effect('fadeOut',array('buffer'=>'false'))
+));
+
+?>
+
+<div id="conted-product" class="index">
 
     <div class="page-header">
 	    <h2><?php echo __('Products'); ?></h2>
 	</div>
 	
 	<div class="col-md-12">
+	
+	<div class="progress occult" id="processing">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+            <span class="sr-only">100% Complete</span>
+            </div>
+        </div>
+	
 	<table class="table table-striped" cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
@@ -15,6 +32,7 @@
 			<th><?php echo $this->Paginator->sort('length'); ?></th>
 			<th><?php echo $this->Paginator->sort('width'); ?></th>
 			<th><?php echo $this->Paginator->sort('price'); ?></th>
+			<th><?php echo $this->Paginator->sort('photo'); ?></th>
 			<th><?php echo $this->Paginator->sort('product_type_id'); ?></th>
 			<th><?php echo __('Actions'); ?></th>
 	</tr>
@@ -29,6 +47,7 @@
 		<td><?php echo h($product['Product']['length']); ?>&nbsp;</td>
 		<td><?php echo h($product['Product']['width']); ?>&nbsp;</td>
 		<td><?php echo h($product['Product']['price']); ?>&nbsp;</td>
+		<td><?php echo $this->Html->image('../files/product/photo/'.$product['Product']['photo_address'].'/'.'thumb_'.$product['Product']['photo']); ?></td>
 		<td>
 			<?php echo $this->Html->link($product['ProductType']['id'], array('controller' => 'product_types', 'action' => 'view', $product['ProductType']['id'])); ?>
 		</td>
@@ -48,13 +67,16 @@
 	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
 	));
 	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled btn btn-sm btn-default'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled btn btn-sm btn-default'));
-	?>
-	</div>
+	<ul class="pagination">
+	
+		<li> <?php echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled btn btn-sm btn-default'));?></li>
+		<?php echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentTag' => 'a', 'currentClass' => 'active'));?>
+		<li> <?php echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled btn btn-sm btn-default'));?></li>
+	
+	</ul>
+	
+	<?php echo $this->Js->writeBuffer(); ?>
+	
 </div>
 
 <!---

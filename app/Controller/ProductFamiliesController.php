@@ -13,7 +13,14 @@ class ProductFamiliesController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('RequestHandler','Session');
+	public $helpers = array('Html', 'Form', 'Time', 'Js');
+    public $paginate = array(
+        'limit' => 10,
+        'order' => array(
+            'ProductFamily.id' => 'asc'
+        )
+    );
 
 /**
  * index method
@@ -22,7 +29,10 @@ class ProductFamiliesController extends AppController {
  */
 	public function index() {
 		$this->ProductFamily->recursive = 0;
-		$this->set('productFamilies', $this->Paginator->paginate());
+        $this->paginate['ProductFamilie']['limit'] = 10;
+        $this->paginate['ProductFamilie']['order'] = array('ProductFamily.id' => 'asc');
+        //$this->Paginator->settings = $this->paginate;
+        $this->set('productFamilies', $this->paginate());
 	}
 
 /**
@@ -49,10 +59,10 @@ class ProductFamiliesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->ProductFamily->create();
 			if ($this->ProductFamily->save($this->request->data)) {
-				$this->Session->setFlash(__('The product family has been saved.'));
+				$this->Session->setFlash('The product family has been saved.','default', array('class'=>'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The product family could not be saved. Please, try again.'));
+				$this->Session->setFlash('The product family could not be saved. Please, try again.','default', array('class' => 'alert alert-danger'));
 			}
 		}
 	}
@@ -70,10 +80,10 @@ class ProductFamiliesController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->ProductFamily->save($this->request->data)) {
-				$this->Session->setFlash(__('The product family has been saved.'));
+				$this->Session->setFlash('The product family has been saved.','default',array('class' => 'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The product family could not be saved. Please, try again.'));
+				$this->Session->setFlash('The product family could not be saved. Please, try again.','default', array('class' => 'alert alert-danger'));
 			}
 		} else {
 			$options = array('conditions' => array('ProductFamily.' . $this->ProductFamily->primaryKey => $id));
@@ -95,9 +105,9 @@ class ProductFamiliesController extends AppController {
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->ProductFamily->delete()) {
-			$this->Session->setFlash(__('The product family has been deleted.'));
+			$this->Session->setFlash('The product family has been deleted.', 'default', array('class' => 'alert alert-success'));
 		} else {
-			$this->Session->setFlash(__('The product family could not be deleted. Please, try again.'));
+			$this->Session->setFlash('The product family could not be deleted. Please, try again.','default', array('class' => 'alert alert-danger'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}

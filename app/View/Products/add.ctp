@@ -1,7 +1,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-6">
-            <?php echo $this->Form->create('Product'); ?>
+            <?php echo $this->Form->create('Product',array('type' => 'file', 'novalidate' => 'novalidate')); ?>
                 <fieldset>
                     <legend><?php echo __('Add Product'); ?></legend>
                 <?php
@@ -12,6 +12,8 @@
                     echo $this->Form->input('length',array('class' => 'form-control', 'label' => 'Largo(mm)'));
                     echo $this->Form->input('width',array('class' => 'form-control', 'label' => 'Ancho(mm)'));
                     echo $this->Form->input('price',array('class' => 'form-control', 'label' => 'Precio S/.'));
+                    echo $this->Form->input('photo',array('type'=>'file','label' => 'Foto'));
+                    echo $this->Form->input('photo_address',array('type'=>'hidden'));
                     echo $this->Form->input('product_type_id',array('class' => 'form-control', 'label' => 'Tipo de Joya'));
                 ?>
                 </fieldset>

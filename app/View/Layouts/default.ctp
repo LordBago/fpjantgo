@@ -28,7 +28,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	<?php
 		echo $this->Html->meta('icon');
 
-		echo $this->Html->css(array('http://getbootstrap.com/dist/css/bootstrap-theme.min.css','http://getbootstrap.com/dist/css/bootstrap.min.css','http://getbootstrap.com/examples/theme/theme.css'));
+		echo $this->Html->css(array('http://getbootstrap.com/dist/css/bootstrap-theme.min.css','http://getbootstrap.com/dist/css/bootstrap.min.css','http://getbootstrap.com/examples/theme/theme.css','styles'));
 		echo $this->Html->script(array('jquery.min','bootstrap.min','http://getbootstrap.com/assets/js/docs.min.js','npm','bootstrap-theme.min'));
 
 		echo $this->fetch('meta');
@@ -36,7 +36,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->fetch('script');
 	?>
 </head>
-<body role="document">
+<body>
     
     <?php echo $this->element('menu'); ?>
     

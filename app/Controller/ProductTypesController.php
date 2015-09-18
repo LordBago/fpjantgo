@@ -13,7 +13,16 @@ class ProductTypesController extends AppController {
  *
  * @var array
  */
-	public $components = array('Paginator');
+	public $components = array('RequestHandler','Session');
+	public $helpers = array('Html', 'Form', 'Time', 'Js');
+    
+    public $paginate = array(
+        'limit' => 10,
+        'order' => array(
+            'ProductType.id' => 'asc'
+        )
+    );
+
 
 /**
  * index method
@@ -22,7 +31,11 @@ class ProductTypesController extends AppController {
  */
 	public function index() {
 		$this->ProductType->recursive = 0;
-		$this->set('productTypes', $this->Paginator->paginate());
+        
+        $this->paginate['ProductType']['limit'] = 10;
+        $this->paginate['ProductType']['order'] = array('ProductType.id' => 'asc');
+        //$this->Paginator->settings = $this->paginate;
+        $this->set('productTypes', $this->paginate());
 	}
 
 /**
@@ -49,10 +62,10 @@ class ProductTypesController extends AppController {
 		if ($this->request->is('post')) {
 			$this->ProductType->create();
 			if ($this->ProductType->save($this->request->data)) {
-				$this->Session->setFlash(__('The product type has been saved.'));
+				$this->Session->setFlash('The product type has been saved.','default',array('class'=>'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The product type could not be saved. Please, try again.'));
+				$this->Session->setFlash('The product type could not be saved. Please, try again.','default',array('class'=>'alert alert-danger'));
 			}
 		}
 		$productFamilies = $this->ProductType->ProductFamily->find('list');
@@ -72,10 +85,10 @@ class ProductTypesController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->ProductType->save($this->request->data)) {
-				$this->Session->setFlash(__('The product type has been saved.'));
+				$this->Session->setFlash('The product type has been saved.','default',array('class'=>'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The product type could not be saved. Please, try again.'));
+				$this->Session->setFlash('The product type could not be saved. Please, try again.','default',array('class'=>'alert alert-danger'));
 			}
 		} else {
 			$options = array('conditions' => array('ProductType.' . $this->ProductType->primaryKey => $id));
@@ -99,9 +112,9 @@ class ProductTypesController extends AppController {
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->ProductType->delete()) {
-			$this->Session->setFlash(__('The product type has been deleted.'));
+			$this->Session->setFlash('The product type has been deleted.','default',array('class'=>'alert alert-success'));
 		} else {
-			$this->Session->setFlash(__('The product type could not be deleted. Please, try again.'));
+			$this->Session->setFlash('The product type could not be deleted. Please, try again.','default',array('class'=>'alert alert-danger'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}

@@ -13,6 +13,23 @@ class Product extends AppModel {
  * @var string
  */
 	public $displayField = 'name';
+    
+    public $actsAs= array(
+        'Upload.Upload' => array(
+            'photo' => array(
+                'fields' => array(
+                    'dir' => 'photo_address'
+                ),
+                'thumbnailMethod' => 'php',
+                'thumbnailSizes' => array(
+                    'vga' => '640x480',
+                    'thumb' => '150x150'
+                    ),
+                'deleteOnUpdate' => true,
+                'deleteFolderOnDelete' => true
+            )
+        )
+    );
 
 /**
  * Validation rules
@@ -138,6 +155,34 @@ class Product extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+        'photo' => array(
+            'uploadError' => array(
+				'rule' => 'uploadError',
+				'message' => 'Algo anda mal, intente nuevamente',
+				'on' => 'create'
+			),
+	    	'isUnderPhpSizeLimit' => array(
+	    		'rule' => 'isUnderPhpSizeLimit',
+	        	'message' => 'Archivo excede el límite de tamaño de archivo de subida'
+	        ),
+		    'isValidMimeType' => array(
+	    		'rule' => array('isValidMimeType', array('image/jpeg', 'image/png'), false),
+        		'message' => 'La imagen no es jpg ni png',
+	    	),
+		    'isBelowMaxSize' => array(
+	    		'rule' => array('isBelowMaxSize', 1048576),
+        		'message' => 'El tamaño de imagen es demasiado grande'
+	    	),
+		    'isValidExtension' => array(
+	    		'rule' => array('isValidExtension', array('jpg', 'png'), false),
+        		'message' => 'La imagen no tiene la extension jpg o png'
+	    	),
+		    'checkUniqueName' => array(
+                'rule' => array('checkUniqueName'),
+                'message' => 'La imagen ya se encuentra registrada',
+                'on' => 'update'
+        	),
+        )
 	);
 
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
@@ -156,4 +201,14 @@ class Product extends AppModel {
 			'order' => ''
 		)
 	);
+    
+    function checkUniqueName($data){
+	    $isUnique = $this->find('first', array('fields' => array('Product.photo'), 'conditions' => array('Product.photo' => $data['photo'])));
+	    if(!empty($isUnique)){
+	        return false;
+	    }else{
+	        return true;
+	    }
+	}
+    
 }
